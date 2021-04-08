@@ -2,7 +2,7 @@ name: build-pandoc
 
 on:
   push:
-    branches: main
+    branches: push-to-oci
 
 jobs:
   build:
@@ -13,13 +13,15 @@ jobs:
       - name: prepare
         id: prepare
         run: |
-          VERSION=${GITHUB_REF#refs/*/}
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          if [[ "${VERSION}" == "${BRANCH_NAME}" ]]; then
-            VERSION=$(git rev-parse --short HEAD)
-          fi
-          echo ::set-output name=version::${VERSION}
-          echo ::set-output name=ref::ghcr.io/${{ github.repository_owner }}/pandoc:${VERSION}
+          #VERSION=${GITHUB_REF#refs/*/}
+          #BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          #if [[ "${VERSION}" == "${BRANCH_NAME}" ]]; then
+          #  VERSION=$(git rev-parse --short HEAD)
+          #fi
+          #echo ::set-output name=version::${VERSION}
+          #echo ::set-output name=ref::ghcr.io/${{ github.repository_owner }}/pandoc:${VERSION}
+          VERSION="2.9.2-1.fc33.x86_64"
+          echo ::set-output name=ref::ghcr.io/opencontainers/pandoc:${VERSION}
       - name: docker build
         run: |
           docker build -t ${{ steps.prepare.outputs.ref }} pandoc/
