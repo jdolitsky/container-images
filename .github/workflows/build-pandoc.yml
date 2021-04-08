@@ -20,7 +20,7 @@ jobs:
           #fi
           #echo ::set-output name=version::${VERSION}
           #echo ::set-output name=ref::ghcr.io/${{ github.repository_owner }}/pandoc:${VERSION}
-          VERSION="2.9.2-1.fc33.x86_64"
+          VERSION="2.9.2.1-8.fc33.x86_64"
           echo ::set-output name=ref::ghcr.io/opencontainers/pandoc:${VERSION}
       - name: docker build
         run: |
